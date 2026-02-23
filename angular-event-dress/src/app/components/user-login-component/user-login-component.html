@@ -1,0 +1,29 @@
+<div class="login-container">
+  <p-card header="התחברות">
+    <form (ngSubmit)="onSubmit()" #loginForm="ngForm">
+      <div class="field">
+        <label for="firstName">שם פרטי</label>
+        <input pInputText id="firstName" [(ngModel)]="user.firstName" name="firstName" required />
+      </div>
+
+      <div class="field">
+        <label for="lastName">שם משפחה</label>
+        <input pInputText id="lastName" [(ngModel)]="user.lastName" name="lastName" required />
+      </div>
+
+      <div class="field">
+        <label for="password">סיסמה</label>
+        <p-password [(ngModel)]="user.password" name="password" [feedback]="false" required></p-password>
+      </div>
+
+      @if (errorMessage()) {
+        <div class="error-message">{{ errorMessage() }}</div>
+      }
+
+      <div class="button-group">
+        <p-button type="submit" label="התחבר" [loading]="loading()" [disabled]="!loginForm.valid"></p-button>
+        <p-button type="button" label="התחבר כמנהל" severity="secondary" [loading]="loading()" [disabled]="!loginForm.valid" (onClick)="loginAsAdmin()"></p-button>
+      </div>
+    </form>
+  </p-card>
+</div>

@@ -1,0 +1,34 @@
+<p-menubar [model]="items">
+  <ng-template pTemplate="start">
+    <div class="header-icons">
+      <div class="icon-circle" (click)="onSearch()">
+        <i class="pi pi-search"></i>
+      </div>
+      <div class="icon-circle cart-wrapper" (click)="onCart()">
+        <i class="pi pi-shopping-cart"></i>
+          <span class="cart-badge">{{ cartItemCount }}</span>
+      </div>
+      
+      @if (isLoggedIn()) {
+        <div class="user-menu-wrapper">
+          <div class="user-button" (click)="toggleUserMenu($event, userMenu)">
+            <i class="pi pi-user"></i>
+            <span class="user-greeting">הי {{ currentUser()?.firstName }}</span>
+            <i class="pi pi-chevron-down"></i>
+          </div>
+          <p-menu #userMenu [model]="userMenuItems" [popup]="true" [appendTo]="'body'"></p-menu>
+        </div>
+      } @else {
+        <div class="icon-circle" (click)="toggleGuestMenu($event, guestMenu)">
+          <i class="pi pi-user"></i>
+        </div>
+        <p-menu #guestMenu [model]="guestMenuItems" [popup]="true" [appendTo]="'body'"></p-menu>
+      }
+    </div>
+  </ng-template>
+  <ng-template pTemplate="end">
+    <a routerLink="/" style="cursor: pointer;">
+      <img src="/logo.png" alt="Logo" class="logo" />
+    </a>
+  </ng-template>
+</p-menubar>

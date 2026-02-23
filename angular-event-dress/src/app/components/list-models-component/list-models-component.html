@@ -1,0 +1,34 @@
+<div class="dress-list-container">
+  <h2 class="page-title">רשימת שמלות</h2>
+  
+  @if (loading()) {
+    <div class="loading-container">
+      <p-progressSpinner></p-progressSpinner>
+      <p>טוען שמלות...</p>
+    </div>
+  }
+
+  @if (!loading()) {
+    <div class="models-grid">
+      @for (model of models(); track model.id) {
+        <div class="model-item">
+          <app-model-card-component [model]="model"></app-model-card-component>
+        </div>
+      }
+      
+      @if (models().length === 0) {
+        <div class="empty-state">
+          <i class="pi pi-search"></i>
+          <p>לא נמצאו שמלות</p>
+        </div>
+      }
+    </div>
+
+    <p-paginator 
+      [rows]="rows" 
+      [totalRecords]="totalRecords()"
+      [showFirstLastIcon]="true"
+      [showPageLinks]="true">
+    </p-paginator>
+  }
+</div>

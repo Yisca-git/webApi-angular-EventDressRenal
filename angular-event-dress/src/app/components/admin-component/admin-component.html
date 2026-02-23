@@ -1,0 +1,27 @@
+<div class="admin-container">
+  <p-card header="איזור ניהול">
+    @if (currentUser()) {
+      <div class="welcome">
+        <h2>שלום {{ currentUser()?.firstName }} {{ currentUser()?.lastName }}</h2>
+        <p>ברוך הבא לאיזור הניהול</p>
+      </div>
+
+      <div class="admin-sections">
+        <p-card header="ניהול משתמשים" class="section-card">
+          <p>צפייה ועריכת משתמשים במערכת</p>
+          <p-button label="עבור לניהול משתמשים" icon="pi pi-users" routerLink="/admin/users"></p-button>
+        </p-card>
+
+        <p-card header="ניהול מוצרים" class="section-card">
+          <p>צפייה ועריכת מוצרים בקטלוג</p>
+          <p-button label="עבור לניהול מוצרים" icon="pi pi-shopping-bag"></p-button>
+        </p-card>
+
+        <p-card header="ניהול הזמנות" class="section-card">
+          <p>צפייה וניהול הזמנות לקוחות</p>
+          <p-button label="עבור לניהול הזמנות" icon="pi pi-list"></p-button>
+        </p-card>
+      </div>
+    }
+  </p-card>
+</div>

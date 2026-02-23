@@ -1,0 +1,56 @@
+.admin-users-container {
+  max-width: 1400px;
+  margin: 2rem auto;
+  padding: 1rem;
+  direction: rtl;
+}
+
+.header-actions {
+  margin-bottom: 1.5rem;
+  text-align: right;
+}
+
+.search-section {
+  margin-bottom: 2rem;
+  padding: 1rem;
+  background-color: #f9fafb;
+  border-radius: 8px;
+}
+
+.search-controls {
+  display: flex;
+  gap: 1rem;
+  align-items: center;
+  flex-wrap: wrap;
+
+  input {
+    flex: 1;
+    min-width: 200px;
+    font-size: 1rem;
+  }
+}
+
+.error-message {
+  color: #e24c4c;
+  margin-top: 1rem;
+  padding: 0.5rem;
+  background-color: #ffe6e6;
+  border-radius: 4px;
+  text-align: right;
+  font-size: 1rem;
+}
+
+:host ::ng-deep {
+  .p-datatable {
+    direction: rtl;
+    
+    th, td {
+      text-align: right;
+      font-size: 1.1rem;
+    }
+
+    th {
+      font-weight: 600;
+    }
+  }
+}

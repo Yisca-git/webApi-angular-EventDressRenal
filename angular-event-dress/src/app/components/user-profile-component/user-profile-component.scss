@@ -1,0 +1,43 @@
+.profile-container {
+  max-width: 600px;
+  margin: 2rem auto;
+  padding: 1rem;
+  direction: rtl;
+}
+
+.profile-info {
+  margin-bottom: 2rem;
+}
+
+.info-row {
+  display: flex;
+  justify-content: space-between;
+  padding: 1rem;
+  border-bottom: 1px solid #e5e7eb;
+  text-align: right;
+
+  &:last-child {
+    border-bottom: none;
+  }
+
+  .label {
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: #374151;
+  }
+
+  .value {
+    font-size: 1.1rem;
+    color: #6b7280;
+  }
+}
+
+.actions {
+  display: flex;
+  justify-content: center;
+  margin-top: 1.5rem;
+
+  p-button {
+    font-size: 1.1rem;
+  }
+}

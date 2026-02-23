@@ -1,0 +1,30 @@
+@import 'primeicons/primeicons.css';
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box ;
+}
+
+body {
+  background-color: #faf8f9;
+}
+
+/* ===== HARD RESET PRIME MENU BACKGROUNDS ===== */
+
+.p-menubar,
+.p-menubar * {
+  background-color: transparent !important;
+}
+.p-menubar .p-menuitem,
+.p-menubar .p-menuitem-content,
+.p-menubar .p-menuitem-link,
+.p-menubar .p-menuitem:hover,
+.p-menubar .p-menuitem-content:hover,
+.p-menubar .p-menuitem-link:hover,
+.p-menubar .p-menuitem.p-focus,
+.p-menubar .p-menuitem.p-highlight,
+.p-menubar .p-menuitem-link:focus,
+.p-menubar .p-menuitem-link:active {
+  background-color: transparent !important;
+  box-shadow: none !important;
+}

@@ -1,0 +1,31 @@
+<div class="profile-container">
+  <p-card header="איזור אישי">
+    @if (currentUser()) {
+      <div class="profile-info">
+        <div class="info-row">
+          <span class="label">שם פרטי:</span>
+          <span class="value">{{ currentUser()?.firstName }}</span>
+        </div>
+        
+        <div class="info-row">
+          <span class="label">שם משפחה:</span>
+          <span class="value">{{ currentUser()?.lastName }}</span>
+        </div>
+        
+        <div class="info-row">
+          <span class="label">אימייל:</span>
+          <span class="value">{{ currentUser()?.email || 'לא צוין' }}</span>
+        </div>
+        
+        <div class="info-row">
+          <span class="label">טלפון:</span>
+          <span class="value">{{ currentUser()?.phone }}</span>
+        </div>
+      </div>
+
+      <div class="actions">
+        <p-button label="עדכון פרטים" icon="pi pi-pencil" (onClick)="navigateToUpdate()"></p-button>
+      </div>
+    }
+  </p-card>
+</div>

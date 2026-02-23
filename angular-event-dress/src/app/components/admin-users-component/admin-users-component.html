@@ -1,0 +1,45 @@
+<div class="admin-users-container">
+  <p-card header="ניהול משתמשים">
+    <div class="header-actions">
+      <p-button label="חזור לאיזור ניהול" icon="pi pi-arrow-right" (onClick)="goBack()"></p-button>
+    </div>
+
+    <div class="search-section">
+      <div class="search-controls">
+        <input pInputText type="number" [(ngModel)]="searchId" placeholder="הכנס מזהה משתמש" />
+        <p-button label="חפש" icon="pi pi-search" (onClick)="searchUserById()"></p-button>
+        <p-button label="הצג הכל" icon="pi pi-list" severity="secondary" (onClick)="loadAllUsers()"></p-button>
+      </div>
+      
+      @if (searchError()) {
+        <div class="error-message">{{ searchError() }}</div>
+      }
+    </div>
+
+    <p-table [value]="users()" [loading]="loading()" styleClass="p-datatable-striped">
+      <ng-template pTemplate="header">
+        <tr>
+          <th>מזהה</th>
+          <th>שם פרטי</th>
+          <th>שם משפחה</th>
+          <th>אימייל</th>
+          <th>טלפון</th>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="body" let-user>
+        <tr>
+          <td>{{ user.id }}</td>
+          <td>{{ user.firstName }}</td>
+          <td>{{ user.lastName }}</td>
+          <td>{{ user.email || 'לא צוין' }}</td>
+          <td>{{ user.phone }}</td>
+        </tr>
+      </ng-template>
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="5" style="text-align: center;">אין משתמשים במערכת</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </p-card>
+</div>
