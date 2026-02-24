@@ -8,11 +8,13 @@ import { CardModule } from 'primeng/card';
 import { TableModule } from 'primeng/table';
 import { ButtonModule } from 'primeng/button';
 import { InputTextModule } from 'primeng/inputtext';
+import { DialogModule } from 'primeng/dialog';
+import { SelectModule } from 'primeng/select';
 
 @Component({
   selector: 'app-admin-users',
   standalone: true,
-  imports: [CommonModule, FormsModule, CardModule, TableModule, ButtonModule, InputTextModule],
+  imports: [CommonModule, FormsModule, CardModule, TableModule, ButtonModule, InputTextModule, DialogModule, SelectModule],
   templateUrl: './admin-users-component.html',
   styleUrl: './admin-users-component.scss',
 })
@@ -25,10 +27,15 @@ export class AdminUsersComponent implements OnInit {
   searchId: number | null = null;
   searchResult = signal<UserModel | null>(null);
   searchError = signal<string>('');
+  
+  editDialog = signal(false);
+  editingUser: UserModel | null = null;
+  roleOptions = [{label: 'משתמש', value: 'USER'}, {label: 'מנהל', value: 'ADMIN'}];
 
   ngOnInit(): void {
-    if (!this.userService.currentUser()) {
-      this.router.navigate(['/login']);
+    const user = this.userService.currentUser();
+    if (!user || user.role !== 'ADMIN') {
+      this.router.navigate(['/']);
       return;
     }
 
@@ -69,6 +76,30 @@ export class AdminUsersComponent implements OnInit {
       error: () => {
         this.searchError.set('משתמש לא נמצא');
         this.loading.set(false);
+      }
+    });
+  }
+
+  openEditDialog(user: UserModel): void {
+    const currentUser = this.userService.currentUser();
+    if (currentUser && user.id === currentUser.id) {
+      alert('לא ניתן לערוך את המשתמש המחובר באיזור זה. אנא השתמש באיזור האישי.');
+      return;
+    }
+    this.editingUser = { ...user };
+    this.editDialog.set(true);
+  }
+
+  saveUser(): void {
+    if (!this.editingUser) return;
+    
+    this.userService.updateUser(this.editingUser.id, this.editingUser).subscribe({
+      next: () => {
+        this.editDialog.set(false);
+        this.loadAllUsers();
+      },
+      error: (err) => {
+        console.error('שגיאה בעדכון משתמש:', err);
       }
     });
   }

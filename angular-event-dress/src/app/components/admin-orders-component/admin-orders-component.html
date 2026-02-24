@@ -1,0 +1,53 @@
+<div class="admin-orders-container">
+  <p-card>
+    <ng-template pTemplate="header">
+      <div class="card-header">
+        <h2>ניהול הזמנות</h2>
+        <p-button 
+          label="חזרה" 
+          icon="pi pi-arrow-right" 
+          (onClick)="goBack()"
+          [text]="true">
+        </p-button>
+      </div>
+    </ng-template>
+
+    <p-table 
+      [value]="orders" 
+      [loading]="loading"
+      [paginator]="true" 
+      [rows]="10"
+      [showCurrentPageReport]="true"
+      currentPageReportTemplate="מציג {first} עד {last} מתוך {totalRecords} הזמנות"
+      styleClass="p-datatable-striped">
+      
+      <ng-template pTemplate="header">
+        <tr>
+          <th>מספר הזמנה</th>
+          <th>תאריך הזמנה</th>
+          <th>תאריך אירוע</th>
+          <th>מזהה משתמש</th>
+          <th>מחיר סופי</th>
+          <th>הערות</th>
+        </tr>
+      </ng-template>
+      
+      <ng-template pTemplate="body" let-order>
+        <tr>
+          <td>{{ order.id }}</td>
+          <td>{{ order.orderDate | date:'dd/MM/yyyy' }}</td>
+          <td>{{ order.eventDate | date:'dd/MM/yyyy' }}</td>
+          <td>{{ order.userId }}</td>
+          <td>{{ order.finalPrice }} ₪</td>
+          <td>{{ order.note || '-' }}</td>
+        </tr>
+      </ng-template>
+
+      <ng-template pTemplate="emptymessage">
+        <tr>
+          <td colspan="6" class="text-center">אין הזמנות במערכת</td>
+        </tr>
+      </ng-template>
+    </p-table>
+  </p-card>
+</div>

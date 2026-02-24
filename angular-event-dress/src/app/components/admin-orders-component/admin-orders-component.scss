@@ -1,0 +1,92 @@
+@use "sass:color";
+$main-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+$main-color: #6b5b5e;
+$accent-color: #d4c5c7;
+$light-pink: #f8f1f2;
+$bg-color: #f4eeee;
+
+.admin-orders-container {
+  font-family: $main-font;
+  background-color: #fafafa;
+  padding: 2rem;
+  direction: rtl;
+  color: $main-color;
+  min-height: 100vh;
+
+  ::ng-deep .p-card {
+    background: #ffffff;
+    border-radius: 24px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.04);
+    border: none;
+    padding: 2rem;
+  }
+
+  .card-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 1rem;
+
+    h2 {
+      margin: 0;
+      font-size: 1.5rem;
+      font-weight: 300;
+      color: $main-color;
+    }
+
+    ::ng-deep .p-button {
+      font-family: $main-font !important;
+      background: transparent !important;
+      border: 1px solid rgba(107,91,94,0.08) !important;
+      color: $main-color !important;
+      border-radius: 10px !important;
+
+      &:hover {
+        background: color.scale(#ffffff, $lightness: -3%) !important;
+        border-color: rgba(107,91,94,0.12) !important;
+      }
+    }
+  }
+
+  .text-center {
+    text-align: center;
+    padding: 2rem;
+    color: color.scale($main-color, $lightness: 30%);
+    font-size: 0.95rem;
+  }
+
+  ::ng-deep {
+    .p-datatable {
+      font-family: $main-font;
+      font-size: 0.9rem;
+      border-radius: 16px;
+      overflow: hidden;
+      
+      th {
+        background: $light-pink !important;
+        font-weight: 500;
+        color: $main-color;
+        padding: 1rem;
+      }
+
+      td {
+        padding: 1rem;
+      }
+
+      tbody tr:hover {
+        background: color.scale($light-pink, $lightness: 50%) !important;
+      }
+    }
+
+    .p-paginator {
+      font-family: $main-font;
+      background: transparent;
+      border: none;
+      padding: 1rem 0;
+
+      .p-paginator-current {
+        color: $main-color;
+      }
+    }
+  }
+}

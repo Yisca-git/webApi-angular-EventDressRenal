@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { ModelCardComponent } from './model-card-component';
 
 describe('ModelCardComponent', () => {
@@ -14,7 +13,7 @@ describe('ModelCardComponent', () => {
 
     fixture = TestBed.createComponent(ModelCardComponent);
     component = fixture.componentInstance;
-    await fixture.whenStable();
+    fixture.detectChanges();
   });
 
   it('should create', () => {

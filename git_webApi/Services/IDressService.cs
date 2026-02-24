@@ -11,6 +11,7 @@ namespace Services
         Task<int> GetPriceById(int id);
         Task<int> GetCountByModelIdAndSizeForDate(int modelId, string size, DateOnly date);
         Task<DressDTO> GetDressById(int id);
+        Task<List<DressDTO>> GetDressesByModelId(int modelId);
         Task<bool> IsDressAvailable(int id, DateOnly date);
         Task<List<string>> GetSizesByModelId(int modelId);
         Task<DressDTO> AddDress(NewDressDTO newDress);

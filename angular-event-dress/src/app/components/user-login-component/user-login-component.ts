@@ -1,3 +1,4 @@
+
 import { Component, inject, signal } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
@@ -22,36 +23,29 @@ export class UserLoginComponent {
 
   user: UserLoginModel = new UserLoginModel();
   errorMessage = signal<string>('');
+  successMessage = signal<string>('');
   loading = signal(false);
 
   onSubmit(): void {
     this.loading.set(true);
     this.errorMessage.set('');
+    this.successMessage.set('');
     
     this.userService.login(this.user).subscribe({
       next: () => {
         this.loading.set(false);
-        this.router.navigate(['/']);
+        const currentUser = this.userService.currentUser();
+        if (currentUser?.role === 'ADMIN') {
+          this.successMessage.set('התחברת בהצלחה כמנהל!');
+          setTimeout(() => this.router.navigate(['/admin']), 1500);
+        } else {
+          this.router.navigate(['/']);
+        }
       },
       error: (err) => {
         this.loading.set(false);
-        this.errorMessage.set(err.error || 'Login failed');
-      }
-    });
-  }
-
-  loginAsAdmin(): void {
-    this.loading.set(true);
-    this.errorMessage.set('');
-    
-    this.userService.login(this.user).subscribe({
-      next: () => {
-        this.loading.set(false);
-        this.router.navigate(['/admin']);
-      },
-      error: (err) => {
-        this.loading.set(false);
-        this.errorMessage.set(err.error || 'Login failed');
+        console.error('Login error:', err);
+        this.errorMessage.set(err?.error?.message || err?.message || 'שגיאת חיבור לשרת');
       }
     });
   }

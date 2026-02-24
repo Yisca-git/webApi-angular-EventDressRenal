@@ -60,11 +60,13 @@ public partial class EventDressRentalContext : DbContext
             entity.HasOne(d => d.Model).WithMany(p => p.Dresses)
                 .HasForeignKey(d => d.ModelId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Dresses_Models");
+                .HasConstraintName("FK_Dresses_Dresses_Models");
         });
 
         modelBuilder.Entity<Model>(entity =>
         {
+            entity.HasKey(e => e.Id).HasName("PK_Dresses_Models");
+
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.BasePrice).HasColumnName("base_price");
             entity.Property(e => e.Color)
@@ -94,7 +96,7 @@ public partial class EventDressRentalContext : DbContext
                     l => l.HasOne<Model>().WithMany()
                         .HasForeignKey("ModelId")
                         .OnDelete(DeleteBehavior.ClientSetNull)
-                        .HasConstraintName("FK_Models_Categories_Models"),
+                        .HasConstraintName("FK_Models_Categories_Dresses_Models"),
                     j =>
                     {
                         j.HasKey("ModelId", "CategoryId");
@@ -109,9 +111,7 @@ public partial class EventDressRentalContext : DbContext
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.EventDate).HasColumnName("event_date");
             entity.Property(e => e.FinalPrice).HasColumnName("final_price");
-            entity.Property(e => e.Note)
-                .IsRequired()
-                .HasColumnName("note");
+            entity.Property(e => e.Note).HasColumnName("note");
             entity.Property(e => e.OrderDate)
                 .HasDefaultValueSql("(getdate())")
                 .HasAnnotation("Relational:DefaultConstraintName", "DF_Orders_order_date")
@@ -132,7 +132,9 @@ public partial class EventDressRentalContext : DbContext
 
         modelBuilder.Entity<OrderItem>(entity =>
         {
-            entity.ToTable("Order_Items");
+            entity.HasKey(e => e.Id).HasName("PK_Orders_items");
+
+            entity.ToTable("Order_items");
 
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.DressId).HasColumnName("dress_id");
@@ -141,12 +143,12 @@ public partial class EventDressRentalContext : DbContext
             entity.HasOne(d => d.Dress).WithMany(p => p.OrderItems)
                 .HasForeignKey(d => d.DressId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Order_Items_Dresses");
+                .HasConstraintName("FK_Orders_items_Dresses");
 
             entity.HasOne(d => d.Order).WithMany(p => p.OrderItems)
                 .HasForeignKey(d => d.OrderId)
                 .OnDelete(DeleteBehavior.ClientSetNull)
-                .HasConstraintName("FK_Order_Items_Orders");
+                .HasConstraintName("FK_Orders_items_Orders");
         });
 
         modelBuilder.Entity<Rating>(entity =>
@@ -175,6 +177,8 @@ public partial class EventDressRentalContext : DbContext
 
         modelBuilder.Entity<Status>(entity =>
         {
+            entity.HasKey(e => e.Id).HasName("PK_Status");
+
             entity.Property(e => e.Id).HasColumnName("id");
             entity.Property(e => e.Name)
                 .IsRequired()
@@ -198,6 +202,10 @@ public partial class EventDressRentalContext : DbContext
                 .IsRequired()
                 .HasMaxLength(20)
                 .HasColumnName("phone");
+            entity.Property(e => e.Role)
+                .IsRequired()
+                .HasMaxLength(50)
+                .HasColumnName("role");
         });
 
         OnModelCreatingPartial(modelBuilder);

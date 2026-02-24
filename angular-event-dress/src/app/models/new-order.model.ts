@@ -1,8 +1,8 @@
 import { NewOrderItemModel } from './new-order-item.model';
 
-export class NewOrder {
-    orderDate!: Date;      
-    eventDate!: Date;
+export class NewOrderModel {
+    orderDate!: string;      
+    eventDate!: string;
     finalPrice!: number;
     userId!: number;
     note?: string;        

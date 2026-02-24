@@ -198,6 +198,32 @@
   },
   {
     "ContainingType": "EventDressRental.Controllers.DressesController",
+    "Method": "GetDressesByModelId",
+    "RelativePath": "api/Dresses/model/{modelId}",
+    "HttpMethod": "GET",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "modelId",
+        "Type": "System.Int32",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": [
+      {
+        "Type": "System.Collections.Generic.List\u00601[[DTOs.DressDTO, DTOs, Version=1.0.0.0, Culture=neutral, PublicKeyToken=null]]",
+        "MediaTypes": [
+          "text/plain",
+          "application/json",
+          "text/json"
+        ],
+        "StatusCode": 200
+      }
+    ]
+  },
+  {
+    "ContainingType": "EventDressRental.Controllers.DressesController",
     "Method": "GetSizesByModelId",
     "RelativePath": "api/Dresses/sizes",
     "HttpMethod": "GET",

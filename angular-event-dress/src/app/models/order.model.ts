@@ -1,6 +1,6 @@
 import { OrderItemModel } from './order-item.model'; 
 
-export class Order {
+export class OrderModel {
     id!: number;
     orderDate!: Date;     
     eventDate!: Date;

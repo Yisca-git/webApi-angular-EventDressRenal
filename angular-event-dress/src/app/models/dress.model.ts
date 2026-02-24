@@ -1,5 +1,5 @@
 
-export class DressyModel {
+export class DressModel {
     id!: number;
     modelName!: string;
     size!: string;

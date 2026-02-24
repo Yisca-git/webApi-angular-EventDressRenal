@@ -1,31 +1,100 @@
 <div class="profile-container">
-  <p-card header="איזור אישי">
-    @if (currentUser()) {
-      <div class="profile-info">
-        <div class="info-row">
-          <span class="label">שם פרטי:</span>
-          <span class="value">{{ currentUser()?.firstName }}</span>
-        </div>
-        
-        <div class="info-row">
-          <span class="label">שם משפחה:</span>
-          <span class="value">{{ currentUser()?.lastName }}</span>
-        </div>
-        
-        <div class="info-row">
-          <span class="label">אימייל:</span>
-          <span class="value">{{ currentUser()?.email || 'לא צוין' }}</span>
-        </div>
-        
-        <div class="info-row">
-          <span class="label">טלפון:</span>
-          <span class="value">{{ currentUser()?.phone }}</span>
+  @if (currentUser()) {
+    <div class="welcome-section">
+      <h1>שלום {{ currentUser()?.firstName }}!</h1>
+      <p>שמחים לראות אותך שוב באיזור האישי שלך ✨</p>
+    </div>
+
+    <div class="profile-cards">
+      <div class="info-card">
+        <h3>הפרטים שלי</h3>
+        <div class="profile-info">
+          <div class="info-row">
+            <span class="label">שם פרטי:</span>
+            <span class="value">{{ currentUser()?.firstName }}</span>
+          </div>
+          
+          <div class="info-row">
+            <span class="label">שם משפחה:</span>
+            <span class="value">{{ currentUser()?.lastName }}</span>
+          </div>
+          
+          <div class="info-row">
+            <span class="label">אימייל:</span>
+            <span class="value">{{ currentUser()?.email || 'לא צוין' }}</span>
+          </div>
+          
+          <div class="info-row">
+            <span class="label">טלפון:</span>
+            <span class="value">{{ currentUser()?.phone }}</span>
+          </div>
         </div>
       </div>
 
-      <div class="actions">
-        <p-button label="עדכון פרטים" icon="pi pi-pencil" (onClick)="navigateToUpdate()"></p-button>
+      <div class="update-card" (click)="navigateToUpdate()">
+        <i class="pi pi-pencil card-icon"></i>
+        <h3>עדכון פרטים</h3>
+        <p>לחצי כאן לעדכון הפרטים האישיים שלך</p>
       </div>
-    }
-  </p-card>
+    </div>
+  }
 </div>
+
+@if (showSuccessAlert) {
+  <div class="success-alert">
+    <i class="pi pi-check-circle"></i>
+    <span>הפרטים עודכנו בהצלחה!</span>
+  </div>
+}
+
+<p-dialog 
+  [(visible)]="showUpdateDialog" 
+  [modal]="true" 
+  [closable]="true"
+  [style]="{width: '500px'}"
+  (onHide)="closeDialog()">
+  
+  <ng-template pTemplate="header">
+    <h3>עדכון פרטים אישיים</h3>
+  </ng-template>
+
+  @if (editUser) {
+    <div class="update-form">
+      @if (errorMessage) {
+        <div class="error-message">{{ errorMessage }}</div>
+      }
+
+      <div class="field">
+        <label>שם פרטי</label>
+        <input pInputText [(ngModel)]="editUser.firstName" />
+      </div>
+
+      <div class="field">
+        <label>שם משפחה</label>
+        <input pInputText [(ngModel)]="editUser.lastName" />
+      </div>
+
+      <div class="field">
+        <label>אימייל</label>
+        <input pInputText [(ngModel)]="editUser.email" type="email" />
+      </div>
+
+      <div class="field">
+        <label>טלפון</label>
+        <input pInputText [(ngModel)]="editUser.phone" />
+      </div>
+
+      <div class="field">
+        <label>סיסמה חדשה (אופציונלי)</label>
+        <p-password [(ngModel)]="editUser.password" [feedback]="false" [toggleMask]="true"></p-password>
+      </div>
+    </div>
+  }
+
+  <ng-template pTemplate="footer">
+    <div class="dialog-footer">
+      <p-button label="ביטול" severity="secondary" (onClick)="closeDialog()"></p-button>
+      <p-button label="שמירה" (onClick)="updateProfile()"></p-button>
+    </div>
+  </ng-template>
+</p-dialog>

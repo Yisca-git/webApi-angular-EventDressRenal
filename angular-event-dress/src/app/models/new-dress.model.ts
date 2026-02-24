@@ -1,4 +1,3 @@
-
 export class NewDressModel {
     modelId!: number;
     size!: string;

@@ -12,38 +12,48 @@ export class UserService {
   private http = inject(HttpClient);
   private apiUrl = 'https://localhost:44362/api/users';
 
-  currentUser = signal<UserModel | null>(null);
-  isLoggedIn = signal(false);
+  // אתחול ה-Signal ישירות מה-Storage (תחליף לקונסטרקטור)
+  currentUser = signal<UserModel | null>(this.getUserFromStorage());
+  isLoggedIn = signal<boolean>(!!this.getUserFromStorage());
 
   register(user: UserRegisterModel): Observable<UserModel> {
     return this.http.post<UserModel>(this.apiUrl, user).pipe(
-      tap(userData => {
-        this.currentUser.set(userData);
-        this.isLoggedIn.set(true);
-      })
+      tap(userData => this.setSession(userData))
     );
   }
 
   login(user: UserLoginModel): Observable<UserModel> {
     return this.http.post<UserModel>(`${this.apiUrl}/login`, user).pipe(
-      tap(userData => {
-        this.currentUser.set(userData);
-        this.isLoggedIn.set(true);
-      })
+      tap(userData => this.setSession(userData))
     );
   }
 
   updateUser(id: number, user: UserModel): Observable<void> {
     return this.http.put<void>(`${this.apiUrl}/${id}`, user).pipe(
-      tap(() => {
-        this.currentUser.set(user);
-      })
+      tap(() => this.setSession(user))
     );
   }
 
   logout(): void {
+    localStorage.removeItem('user_data');
     this.currentUser.set(null);
     this.isLoggedIn.set(false);
+  }
+
+  private setSession(userData: UserModel): void {
+    localStorage.setItem('user_data', JSON.stringify(userData));
+    this.currentUser.set(userData);
+    this.isLoggedIn.set(true);
+  }
+
+  private getUserFromStorage(): UserModel | null {
+    const savedUser = localStorage.getItem('user_data');
+    if (!savedUser) return null;
+    try {
+      return JSON.parse(savedUser) as UserModel;
+    } catch {
+      return null;
+    }
   }
 
   getAllUsers(): Observable<UserModel[]> {

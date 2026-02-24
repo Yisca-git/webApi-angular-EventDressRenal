@@ -1,3 +1,4 @@
+
 <div class="admin-users-container">
   <p-card header="ניהול משתמשים">
     <div class="header-actions">
@@ -24,6 +25,8 @@
           <th>שם משפחה</th>
           <th>אימייל</th>
           <th>טלפון</th>
+          <th>תפקיד</th>
+          <th>פעולות</th>
         </tr>
       </ng-template>
       <ng-template pTemplate="body" let-user>
@@ -33,13 +36,48 @@
           <td>{{ user.lastName }}</td>
           <td>{{ user.email || 'לא צוין' }}</td>
           <td>{{ user.phone }}</td>
+          <td>{{ user.role === 'ADMIN' ? 'מנהל' : 'משתמש' }}</td>
+          <td>
+            <p-button icon="pi pi-pencil" severity="info" (onClick)="openEditDialog(user)"></p-button>
+          </td>
         </tr>
       </ng-template>
       <ng-template pTemplate="emptymessage">
         <tr>
-          <td colspan="5" style="text-align: center;">אין משתמשים במערכת</td>
+          <td colspan="7" style="text-align: center;">אין משתמשים במערכת</td>
         </tr>
       </ng-template>
     </p-table>
   </p-card>
 </div>
+
+<p-dialog [(visible)]="editDialog" header="עריכת משתמש" [modal]="true" [style]="{width: '450px'}">
+  @if (editingUser) {
+    <div class="edit-form">
+      <div class="field">
+        <label>שם פרטי</label>
+        <input pInputText [(ngModel)]="editingUser.firstName" />
+      </div>
+      <div class="field">
+        <label>שם משפחה</label>
+        <input pInputText [(ngModel)]="editingUser.lastName" />
+      </div>
+      <div class="field">
+        <label>אימייל</label>
+        <input pInputText [(ngModel)]="editingUser.email" />
+      </div>
+      <div class="field">
+        <label>טלפון</label>
+        <input pInputText [(ngModel)]="editingUser.phone" />
+      </div>
+      <div class="field">
+        <label>תפקיד</label>
+        <p-select [(ngModel)]="editingUser.role" [options]="roleOptions" optionLabel="label" optionValue="value" placeholder="בחר תפקיד"></p-select>
+      </div>
+    </div>
+    <div class="dialog-footer">
+      <p-button label="ביטול" severity="secondary" (onClick)="editDialog.set(false)"></p-button>
+      <p-button label="שמור" (onClick)="saveUser()"></p-button>
+    </div>
+  }
+</p-dialog>

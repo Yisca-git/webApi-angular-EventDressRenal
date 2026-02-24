@@ -1,56 +1,182 @@
+@use "sass:color";
+$main-font: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+$main-color: #6b5b5e;
+$accent-color: #d4c5c7;
+$light-pink: #f8f1f2;
+$bg-color: #f4eeee;
+
 .admin-users-container {
-  max-width: 1400px;
-  margin: 2rem auto;
-  padding: 1rem;
+  font-family: $main-font;
+  background-color: #fafafa;
+  padding: 2rem;
   direction: rtl;
-}
+  color: $main-color;
+  min-height: 100vh;
 
-.header-actions {
-  margin-bottom: 1.5rem;
-  text-align: right;
-}
-
-.search-section {
-  margin-bottom: 2rem;
-  padding: 1rem;
-  background-color: #f9fafb;
-  border-radius: 8px;
-}
-
-.search-controls {
-  display: flex;
-  gap: 1rem;
-  align-items: center;
-  flex-wrap: wrap;
-
-  input {
-    flex: 1;
-    min-width: 200px;
-    font-size: 1rem;
+  ::ng-deep .p-card {
+    background: #ffffff;
+    border-radius: 24px;
+    box-shadow: 0 15px 40px rgba(0, 0, 0, 0.04);
+    border: none;
+    padding: 2rem;
   }
-}
 
-.error-message {
-  color: #e24c4c;
-  margin-top: 1rem;
-  padding: 0.5rem;
-  background-color: #ffe6e6;
-  border-radius: 4px;
-  text-align: right;
-  font-size: 1rem;
-}
+  .header-actions {
+    margin-bottom: 1.5rem;
+    text-align: right;
 
-:host ::ng-deep {
-  .p-datatable {
-    direction: rtl;
-    
-    th, td {
-      text-align: right;
-      font-size: 1.1rem;
+    ::ng-deep .p-button {
+      font-family: $main-font !important;
+      background: transparent !important;
+      border: 1px solid rgba(107,91,94,0.08) !important;
+      color: $main-color !important;
+      border-radius: 10px !important;
+
+      &:hover {
+        background: color.scale(#ffffff, $lightness: -3%) !important;
+        border-color: rgba(107,91,94,0.12) !important;
+      }
+    }
+  }
+
+  .search-section {
+    margin-bottom: 2rem;
+    padding: 1.5rem;
+    background-color: $light-pink;
+    border-radius: 16px;
+    border: 1px solid $accent-color;
+  }
+
+  .search-controls {
+    display: flex;
+    gap: 1rem;
+    align-items: center;
+    flex-wrap: wrap;
+
+    ::ng-deep input {
+      flex: 1;
+      min-width: 200px;
+      font-size: 0.9rem;
+      font-family: $main-font;
+      border-radius: 10px;
+      border: 1px solid $accent-color;
     }
 
-    th {
-      font-weight: 600;
+    ::ng-deep .p-button {
+      font-family: $main-font !important;
+      background: $main-color !important;
+      border: 1px solid $main-color !important;
+      color: #ffffff !important;
+      border-radius: 10px !important;
+
+      &:hover {
+        background: color.scale($main-color, $lightness: -10%) !important;
+      }
+    }
+  }
+
+  .error-message {
+    color: #c44545;
+    margin-top: 1rem;
+    padding: 0.8rem;
+    background-color: #fbf3f3;
+    border: 1px solid #e2bcbc;
+    border-radius: 12px;
+    text-align: right;
+    font-size: 0.9rem;
+  }
+
+  .edit-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    direction: rtl;
+
+    .field {
+      display: flex;
+      flex-direction: column;
+      gap: 0.5rem;
+
+      label {
+        font-weight: 500;
+        font-size: 0.9rem;
+        text-align: right;
+      }
+
+      ::ng-deep input,
+      ::ng-deep .p-select {
+        font-family: $main-font;
+        border-radius: 10px;
+        border: 1px solid $accent-color;
+      }
+    }
+  }
+
+  .dialog-footer {
+    display: flex;
+    justify-content: flex-start;
+    gap: 1rem;
+    margin-top: 1.5rem;
+
+    ::ng-deep .p-button {
+      font-family: $main-font !important;
+      border-radius: 10px !important;
+      padding: 0.7rem 1.4rem !important;
+    }
+  }
+
+  ::ng-deep {
+    .p-datatable {
+      direction: rtl;
+      font-family: $main-font;
+      border-radius: 16px;
+      overflow: hidden;
+      
+      th, td {
+        text-align: right;
+        font-size: 0.9rem;
+        padding: 1rem;
+      }
+
+      th {
+        font-weight: 500;
+        background: $light-pink !important;
+        color: $main-color;
+      }
+
+      tbody tr:hover {
+        background: color.scale($light-pink, $lightness: 50%) !important;
+      }
+    }
+
+    .p-dialog {
+      direction: rtl;
+      border-radius: 20px;
+      font-family: $main-font;
+
+      .p-dialog-header {
+        background: $light-pink;
+        border-radius: 20px 20px 0 0;
+      }
+    }
+
+    .p-button-success {
+      background: $main-color !important;
+      border: 1px solid $main-color !important;
+
+      &:hover {
+        background: color.scale($main-color, $lightness: -10%) !important;
+      }
+    }
+
+    .p-button-secondary {
+      background: transparent !important;
+      border: 1px solid $accent-color !important;
+      color: $main-color !important;
+
+      &:hover {
+        background: $light-pink !important;
+      }
     }
   }
 }

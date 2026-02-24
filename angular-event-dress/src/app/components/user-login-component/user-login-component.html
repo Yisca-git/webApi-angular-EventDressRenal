@@ -20,9 +20,12 @@
         <div class="error-message">{{ errorMessage() }}</div>
       }
 
+      @if (successMessage()) {
+        <div class="success-message">{{ successMessage() }}</div>
+      }
+
       <div class="button-group">
         <p-button type="submit" label="התחבר" [loading]="loading()" [disabled]="!loginForm.valid"></p-button>
-        <p-button type="button" label="התחבר כמנהל" severity="secondary" [loading]="loading()" [disabled]="!loginForm.valid" (onClick)="loginAsAdmin()"></p-button>
       </div>
     </form>
   </p-card>

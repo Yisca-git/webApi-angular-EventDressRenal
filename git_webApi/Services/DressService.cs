@@ -53,6 +53,14 @@ namespace Services
         {
             return await _dressRepository.GetSizesByModelId(modelId);
         }
+
+        public async Task<List<DressDTO>> GetDressesByModelId(int modelId)
+        {
+            List<Dress> dresses = await _dressRepository.GetDressesByModelId(modelId);
+            List<DressDTO> dressesDTO = _mapper.Map<List<Dress>, List<DressDTO>>(dresses);
+            return dressesDTO;
+        }
+
         public async Task<bool> IsDressAvailable(int id, DateOnly date)
         {
             return await _dressRepository.IsDressAvailable(id, date);

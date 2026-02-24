@@ -45,6 +45,15 @@ namespace Repositories
                 .Distinct()
                 .ToListAsync();
         }
+
+        public async Task<List<Dress>> GetDressesByModelId(int modelId)
+        {
+            return await _eventDressRentalContext.Dresses
+                .Include(d => d.Model)
+                .Where(d => d.IsActive == true && d.ModelId == modelId)
+                .ToListAsync();
+        }
+
         public async Task<int> GetPriceById(int id)
         {
             return await _eventDressRentalContext.Dresses

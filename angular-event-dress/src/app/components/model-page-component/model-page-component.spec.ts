@@ -1,5 +1,4 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-
 import { ModelPageComponent } from './model-page-component';
 
 describe('ModelPageComponent', () => {
@@ -14,7 +13,7 @@ describe('ModelPageComponent', () => {
 
     fixture = TestBed.createComponent(ModelPageComponent);
     component = fixture.componentInstance;
-    await fixture.whenStable();
+    fixture.detectChanges();
   });
 
   it('should create', () => {

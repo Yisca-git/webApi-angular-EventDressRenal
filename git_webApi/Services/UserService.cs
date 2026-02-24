@@ -40,6 +40,7 @@ namespace Services
         public async Task<UserDTO> AddUser(UserRegisterDTO newUser)
         {
             User userRegister = _mapper.Map<UserRegisterDTO, User>(newUser);
+            userRegister.Role = "USER"; // הגדרת תפקיד ברירת מחדל
             User user = await _userRepository.AddUser(userRegister);
             UserDTO userDTO = _mapper.Map<User, UserDTO>(user);
             return userDTO;

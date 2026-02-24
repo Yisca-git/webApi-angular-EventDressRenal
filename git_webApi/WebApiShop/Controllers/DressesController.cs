@@ -30,6 +30,18 @@ namespace EventDressRental.Controllers
             DressDTO dress = await _dressService.GetDressById(id);
             return dress != null ? Ok(dress) : NotFound();
         }
+
+        // GET api/<DressesController>/model/{modelId}
+        [HttpGet("model/{modelId}")]
+        public async Task<ActionResult<List<DressDTO>>> GetDressesByModelId(int modelId)
+        {
+            if (await _modelService.GetModelById(modelId) == null)
+                return NotFound(" not found model with id" + modelId);
+
+            List<DressDTO> dresses = await _dressService.GetDressesByModelId(modelId);
+            return Ok(dresses);
+        }
+
         // GET api/<DressesController>/sizes
         [HttpGet("sizes")]
         public async Task<ActionResult<List<string>>> GetSizesByModelId(int modelId)
